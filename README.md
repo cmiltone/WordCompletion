@@ -9,8 +9,8 @@ The aim is to provide a sorted ( based on the percentage of the frequecny of occ
 
 ## Parameters
 
-***@param $begining:- string, the begining portion of the word to be completed. e.g 'yo', 'you', or 'your' etc***
-***@param $words_source:- string, the filename (.txt) of the text file containing the commonly used words.***
+***@param $begining:- string, the begining portion of the word to be completed. e.g 'yo', 'you', or 'your' etc<br>***
+***@param $words_source:- string, the filename (.txt) of the text file containing the commonly used words.<br>***
 **You can use a corpus from [The Guternburg Project](http://www.gutenberg.org/files/)** 
 
 ## Return
