@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Word Completetion php - Demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <style type="text/css">
+    .demo-from{
+      height: auto;
+      border: 1px solid #ccc;
+      width: 90%;
+      padding: 5px;
+      margin: 20px auto;
+    }
+    input{
+      border: 1px solid;
+      width: 90%;
+      box-sizing: border-box;
+    }
+  </style>
+  <script type="text/javascript">
+    function doSuggest(data)
+    {
+      $.ajax({
+        type: 'POST',
+        url: 'demo.php',
+        data: data
+      })
+      .done(function(response, status){
+        $('#result-placeholer').text('');
+        var html = "";
+        var keys = Object.keys(response);
+        var key = '';
+        for(var i = 0; i < keys.length; i ++)
+        {
+          key = keys[i];
+          html = "<li> " + key + " (" + response[key] + "%)</li>";
+          console.log(html);
+          $('#result-placeholer').append(html);
+        }
+      })
+      .fail(function(jq, s, e){
+        console.error(e);
+        $('#result-placeholer').text('A Server or Network Error ocurred!');
+      });
+    }
+  	$(function(){
+      $('#demo_form').submit(function(e){
+        $('#result-placeholer').text('Working...');
+        var data = $(this).serializeArray();
+        doSuggest(data);//
+        e.preventDefault();
+      });
+
+      
+  	});
+  </script>
+</head>
+<body>
+  
+<div class="container">
+  <form class="demo-from" id="demo_form">
+    <h3 align="center">Word Completion With Probable Suggestions in percentages</h3>
+    <div class="form-group">
+      <label for="input_text">Enter the Begining portion*:</label>
+      <input name="input_text" type="text" class="form-control" id="input_text" placeholder="Start Typing..." required>
+    </div>
+    <div class="form-group">
+      <label for="source">Select Reference Source*:</label>
+      <select name="source" id="source" class="form-control" required>
+        <option value="words.txt">words.txt(default)</option>
+        <option value="2600-0.txt">2600-0.txt(slow)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Top 10 Results:</label>
+      <ul id="result-placeholer"></ul>
+    </div>
+    <button class="btn btn-primary" type="Submit">Submit</button>
+  </form>
+</div>
+</body>
+</html>
