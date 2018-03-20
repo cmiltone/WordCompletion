@@ -1,4 +1,4 @@
-# WordCompletions
+# WordCompletion
 
 A class that generates a sorted list of most probable completion(s) of the beginning portions of a given word (or letters) using a given source of words (typically a .txt file) as the reference for spellings and how frequently words are used.
 
